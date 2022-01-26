@@ -1,1 +1,0 @@
-### Harikulade bir README file
