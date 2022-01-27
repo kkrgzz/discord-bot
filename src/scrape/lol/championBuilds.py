@@ -83,7 +83,7 @@ class LolBuildScraper:
     def url_to_img(self, arr):
         # Read Background Image
         background_image = cv2.imread("bg_image_empty.png")
-
+        
         """
         List of Popular Items Overlayed on the Background Image
         @param i Alignment variable. Determines start position of each item on the screen.
@@ -128,7 +128,7 @@ class LolBuildScraper:
 
 
     def getBuild(self, save_as_image = False, output_file_name = "build", output_file_extension = "jpg"):
-        selection = self.champion_filter("evelynn")
+        selection = self.champion_filter("jinx")
         if selection:
             name, key = selection[0], selection[1]
             data_dict = self.fetch_build(key)
