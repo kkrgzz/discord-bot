@@ -71,12 +71,23 @@ def fetch_build(champ_key):
 
     return dictionary
 
+def url_to_img(url):
+    url_response = urllib.request.urlopen(url)
+    img_array = np.array(bytearray(url_response.read()), dtype=np.uint8)
+    img = cv2.imdecode(img_array, -1)
+    cv2.imshow('URL Image', img)
+    cv2.waitKey()
+
+
+
+
 selection = champion_filter("evelynn")
 if selection:
-    name = selection[0]
-    key = selection[1]
+    name, key = selection[0], selection[1]
+    data_dict = fetch_build(key)
+    data = np.array(list(data_dict.items()))
 
-    print(fetch_build(key))
+    url_to_img(data[0][1])
 
 else:
     print("Champion Could Not Found!")
