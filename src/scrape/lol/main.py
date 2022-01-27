@@ -2,36 +2,81 @@ from bs4 import BeautifulSoup as bs
 import requests
 import json
 
-
-user_input = "JiNX"
+# Converting URL to Image
+import urllib
+import cv2
+import numpy as np
 
 # Reading champion names and keys to fetch builds from web page.
 champions = open("champions.json")
 champions_data = json.load(champions)
 
-# Web Page URL section and downloads all data and parse them.
-main_url = "https://www.probuilds.net/champions/details/222"
-request = requests.get(main_url)
-soup = bs(request.text, "lxml")
+# Contains the base URL address
+pre_build_url = "https://www.probuilds.net/champions/details/"
 
-# Filtering classes which equals to bigData.
-items = soup.find_all(class_ = "bigData")
+# Temporary variables to store temporary data
+is_champion_exist = False
+selected_champion_key = 0
+selected_champion_name = ""
 
-# Stores item names and images of items, respectively
-item_names_arr = []
-item_images_arr = []
+"""
+@param input Champion name is entered, type is String
+"""
+def champion_filter(input):
 
-# Parsing data
-for item_containers in items:
-    item_names = item_containers.find_all(class_ = "item-name")
-    for name in item_names:
-        item_names_arr.append(name.text)
+    # Is the champion entered by the user available in the list?
+    for champion in champions_data["champions"]:
+        if champion["name"].lower() == input.lower():
+            is_champion_exist = True
+            selected_champion_name, selected_champion_key = champion["name"], champion["key"]
+            break
+        else:
+            is_champion_exist = False
 
-    item_imgs = item_containers.find_all("img")
-    for img in item_imgs:
-        item_images_arr.append(img.get("src"))
+    if is_champion_exist:
+        return selected_champion_name, selected_champion_key
+    else:
+        return False
 
+"""
+@param champ_key Contains champion key value which necessary to fetch build about this champion
+"""
+def fetch_build(champ_key):
+    # Web Page URL section and downloads all data and parse them.
+    url = pre_build_url + champ_key
 
-for champion in champions_data["champions"]:
-    if champion["name"].lower() == user_input.lower():
-        print(champion["name"], " - ", champion["key"])
+    request = requests.get(url, cookies={"lang": "tr_TR"})
+
+    soup = bs(request.text, "lxml")
+
+    # Filtering classes which equals to bigData.
+    items = soup.find_all(class_ = "bigData")
+
+    # Stores item names and images of items, respectively
+    item_names_arr = []
+    item_images_arr = []
+
+    # Parsing data
+    for item_containers in items:
+        item_names = item_containers.find_all(class_ = "item-name")
+        for name in item_names:
+            item_names_arr.append(name.text)
+
+        item_imgs = item_containers.find_all("img")
+        for img in item_imgs:
+            item_images_arr.append(img.get("src"))
+
+    zip_arr = zip(item_names_arr, item_images_arr)
+    dictionary = dict(zip_arr)
+
+    return dictionary
+
+selection = champion_filter("evelynn")
+if selection:
+    name = selection[0]
+    key = selection[1]
+
+    print(fetch_build(key))
+
+else:
+    print("Champion Could Not Found!")
