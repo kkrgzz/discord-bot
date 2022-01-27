@@ -4,6 +4,7 @@ import json
 
 # Converting URL to Image
 import urllib
+import cvzone
 import cv2
 import numpy as np
 
@@ -71,11 +72,25 @@ def fetch_build(champ_key):
 
     return dictionary
 
-def url_to_img(url):
+def url_to_img(arr):
+    url = arr[0][1]
+
+    # Read Background Image
+    background_image = cv2.imread("bg_image_empty.png")
+
+    # URL to Image Process
     url_response = urllib.request.urlopen(url)
     img_array = np.array(bytearray(url_response.read()), dtype=np.uint8)
     img = cv2.imdecode(img_array, -1)
-    cv2.imshow('URL Image', img)
+    img = cv2.resize(img, (50, 50), interpolation=cv2.INTER_NEAREST)
+
+    # background_image = cv2.putText(background_image, 'Build', (100, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255,0,0), 2)
+
+    # Process of Overlaying Images
+    x_offset, y_offset = 14, 100
+    background_image[y_offset:y_offset+img.shape[0], x_offset:x_offset+img.shape[1]] = img
+
+    cv2.imshow('League of Legends', background_image)
     cv2.waitKey()
 
 
@@ -87,7 +102,7 @@ if selection:
     data_dict = fetch_build(key)
     data = np.array(list(data_dict.items()))
 
-    url_to_img(data[0][1])
+    url_to_img(data)
 
 else:
     print("Champion Could Not Found!")
