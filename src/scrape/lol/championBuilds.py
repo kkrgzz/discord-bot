@@ -10,7 +10,7 @@ import numpy as np
 # Saving Image File
 import os
 
-class GetLolBuild:
+class LolBuildScraper:
     def __init__(self):
         # Reading champion names and keys to fetch builds from web page.
         self.champions = open("champions.json")
