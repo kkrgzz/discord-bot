@@ -4,7 +4,6 @@ import json
 
 # Converting URL to Image
 import urllib
-import cvzone
 import cv2
 import numpy as np
 
@@ -72,28 +71,54 @@ def fetch_build(champ_key):
 
     return dictionary
 
-def url_to_img(arr):
-    url = arr[0][1]
 
+"""
+@param arr Array variable. It contains item names and item image URLs inside.
+"""
+def url_to_img(arr):
     # Read Background Image
     background_image = cv2.imread("bg_image_empty.png")
 
-    # URL to Image Process
-    url_response = urllib.request.urlopen(url)
-    img_array = np.array(bytearray(url_response.read()), dtype=np.uint8)
-    img = cv2.imdecode(img_array, -1)
-    img = cv2.resize(img, (50, 50), interpolation=cv2.INTER_NEAREST)
+    """
+    List of Popular Items Overlayed on the Background Image
+    @param i Alignment variable. Determines start position of each item on the screen.
+    """
+    i = 14
+    for item in arr[0:6]:
+        url = item[1]
+        # URL to Image Process
+        url_response = urllib.request.urlopen(url)
+        img_array = np.array(bytearray(url_response.read()), dtype=np.uint8)
+        img = cv2.imdecode(img_array, -1)
+        img = cv2.resize(img, (50, 50), interpolation=cv2.INTER_NEAREST)
 
-    # background_image = cv2.putText(background_image, 'Build', (100, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255,0,0), 2)
+        # Process of Overlaying Images
+        x_offset, y_offset = i, 40
+        background_image[y_offset:y_offset+img.shape[0], x_offset:x_offset+img.shape[1]] = img
 
-    # Process of Overlaying Images
-    x_offset, y_offset = 14, 100
-    background_image[y_offset:y_offset+img.shape[0], x_offset:x_offset+img.shape[1]] = img
+        i += 64
+
+    """
+    List of Popular Summoners Spells Overlayed on the Background Image
+    @param i Alignment variable. Determines start position of each item on the screen.
+    """
+    i = 14
+    for item in arr[7:9]:
+        url = item[1]
+        # URL to Image Process
+        url_response = urllib.request.urlopen(url)
+        img_array = np.array(bytearray(url_response.read()), dtype=np.uint8)
+        img = cv2.imdecode(img_array, -1)
+        img = cv2.resize(img, (50, 50), interpolation=cv2.INTER_NEAREST)
+
+        # Process of Overlaying Images
+        x_offset, y_offset = i, 130
+        background_image[y_offset:y_offset+img.shape[0], x_offset:x_offset+img.shape[1]] = img
+
+        i += 64
 
     cv2.imshow('League of Legends', background_image)
     cv2.waitKey()
-
-
 
 
 selection = champion_filter("evelynn")
