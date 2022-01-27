@@ -117,7 +117,7 @@ def url_to_img(arr):
 
         i += 64
 
-    cv2.imshow('League of Legends', background_image)
+    cv2.imshow('Lol Build', background_image)
     cv2.waitKey()
 
 
