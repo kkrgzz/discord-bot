@@ -9,7 +9,7 @@ bot = commands.Bot(command_prefix = "!", help_command=None) # command prefix (it
 async def reload(ctx):
     bot.reload_extension("commands_cog")
 
-bot.load_extension("Cogs")
+bot.load_extension("commands_cog")
 
 
 
