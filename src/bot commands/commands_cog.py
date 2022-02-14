@@ -10,7 +10,7 @@ import random
 from discord.ext import commands
 from datetime import datetime
 
-#bot = commands.Bot(command_prefix = "!", help_command=None) 
+#bot = commands.Bot(command_prefix = "!", help_command=None)
 #This file is currently a cog of another file!
 # command prefix (it can be changed to any symbol)
 
@@ -19,7 +19,7 @@ class CommandCog(commands.Cog):
 
     def __init__(self,bot):
         self.bot = bot
-    
+
     @commands.Cog.listener()
     async def on_message(self,msg):
         if msg.content == "Listening?":
@@ -27,9 +27,9 @@ class CommandCog(commands.Cog):
 
 
     #reply test
-    @commands.command()        
+    @commands.command()
     async def test(self,ctx):
-        await ctx.send("Here!") 
+        await ctx.send("Here!")
 
     #coinflip game
     @commands.command()
@@ -125,6 +125,11 @@ class CommandCog(commands.Cog):
                 await ctx.guild.unban(bannedmember.user)
 
 
+    @commands.command()
+    async def lolbuild(self, ctx, *args):
+
+
+
     #delete messages from a text channel, format must be: !purge [number] or !purge [date]
     @commands.command()
     async def purge(self,ctx, amount, day = None, month : int = None, year : int = datetime.now().year):
@@ -139,8 +144,9 @@ class CommandCog(commands.Cog):
 
 def setup(bot):
     bot.add_cog(CommandCog(bot))
-    
 
-#bot.run("TOKEN")  
+
+
+#bot.run("TOKEN")
 #This file is currently a cog of another file!
 # #replace TOKEN with token id of bot
