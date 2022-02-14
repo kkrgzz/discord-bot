@@ -8,11 +8,9 @@ bot = commands.Bot(command_prefix = "!", help_command=None) # command prefix (it
 
 @bot.command()
 async def reload(ctx):
-    for file in os.listdir("/src/bot_commands/"):
-        bot.reload_extension("bot_commands.commands_cog")
+    bot.reload_extension("commands_cog")
 
-for file in os.listdir("/src/bot_commands/"):
-    bot.load_extension("bot_commands.commands_cog")
+bot.load_extension("commands_cog")
 
 
 
