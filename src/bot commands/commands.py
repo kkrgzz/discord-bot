@@ -9,7 +9,7 @@ bot = commands.Bot(command_prefix = "!", help_command=None)
 
 @bot.command()
 async def ping(ctx):
-    await ctx.send("Pong!") 
+    await ctx.send("Pong!")
 
 @bot.command()
 async def coinflip(ctx):
@@ -103,7 +103,8 @@ async def purge(ctx, amount, day = None, month : int = None, year : int = dateti
     else:
         await ctx.channel.purge(limit = int(amount)+1)
 
+@bot.command()
 
-    
+
 
 bot.run("TOKEN")

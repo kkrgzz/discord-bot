@@ -83,7 +83,7 @@ class LolBuildScraper:
     def url_to_img(self, arr):
         # Read Background Image
         background_image = cv2.imread("bg_image_empty.png")
-        
+
         """
         List of Popular Items Overlayed on the Background Image
         @param i Alignment variable. Determines start position of each item on the screen.
