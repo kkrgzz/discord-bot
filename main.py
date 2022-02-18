@@ -18,8 +18,5 @@ async def reload(ctx):
 
 bot.load_extension("commands_cog")
 
-
-
-
 bot.run("TOKEN")
 # #replace TOKEN with token id of bot
