@@ -8,7 +8,9 @@ bot = commands.Bot(command_prefix = "!", help_command=None) # command prefix (it
 
 @bot.event
 async def on_ready():
+    print("\n0=0=0=0=0=0=0=0=0=0")
     print("Ready to launch!")
+    print("0=0=0=0=0=0=0=0=0=0\n")
 
 @bot.command()
 async def reload(ctx):
@@ -19,5 +21,5 @@ bot.load_extension("commands_cog")
 
 
 
-bot.run("TOKEN")
+bot.run("OTM1OTEwMjg4MDMxNjIxMTUx.YfFgYQ.U-M31QupS8VdQwvEHmLvpBK0Bps")
 # #replace TOKEN with token id of bot
