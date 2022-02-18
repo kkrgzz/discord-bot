@@ -21,5 +21,5 @@ bot.load_extension("commands_cog")
 
 
 
-bot.run("OTM1OTEwMjg4MDMxNjIxMTUx.YfFgYQ.U-M31QupS8VdQwvEHmLvpBK0Bps")
+bot.run("TOKEN")
 # #replace TOKEN with token id of bot
