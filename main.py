@@ -6,6 +6,10 @@ bot = commands.Bot(command_prefix = "!", help_command=None) # command prefix (it
 #bot is client!
 
 
+@bot.event
+async def on_ready():
+    print("Ready to launch!")
+
 @bot.command()
 async def reload(ctx):
     bot.reload_extension("commands_cog")
