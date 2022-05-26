@@ -1,2 +1,2 @@
 # discord-bot
-Çok özel ve güzel bir bot
+Web scraper, music bot
